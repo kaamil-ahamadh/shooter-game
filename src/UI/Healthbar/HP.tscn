@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/Fonts/poppins.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/Fonts/Poppins-ExtraBold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://src/UI/Healthbar/HP.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.898039, 0.368627, 0.368627, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 0 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.486275, 0.862745, 0.74902, 1 )
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color( 0.8, 0.8, 0.8, 0 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color( 0.854902, 0.603922, 0.286275, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 2 )
+
+[node name="HP" type="CanvasLayer"]
+offset = Vector2( 8, 14 )
+transform = Transform2D( 1, 0, 0, 1, 8, 14 )
+script = ExtResource( 3 )
+
+[node name="HealthbarUnder" type="ProgressBar" parent="."]
+margin_right = 277.0
+margin_bottom = 47.0
+custom_colors/font_color = Color( 0.121569, 0.956863, 0.901961, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
+max_value = 600.0
+step = 100.0
+value = 600.0
+percent_visible = false
+
+[node name="HealthbarOver" type="ProgressBar" parent="."]
+margin_right = 277.0
+margin_bottom = 47.0
+custom_colors/font_color = Color( 0.121569, 0.956863, 0.901961, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 2 )
+max_value = 300.0
+step = 100.0
+value = 300.0
+percent_visible = false
+
+[node name="HPLabel" type="Label" parent="."]
+margin_left = 97.0
+margin_right = 194.0
+margin_bottom = 47.0
+custom_colors/font_color = Color( 0.603922, 0.0901961, 0.0901961, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "300/300 HP"
+align = 1
+valign = 1
+
+[connection signal="value_changed" from="HealthbarUnder" to="." method="_on_Healthbar_value_changed"]
+[connection signal="value_changed" from="HealthbarOver" to="." method="_on_Healthbar_value_changed"]

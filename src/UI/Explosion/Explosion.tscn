@@ -1,0 +1,129 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/UI/Explosion/Explosion.gd" type="Script" id=2]
+[ext_resource path="res://assets/PNG/Explosion/puff.png" type="Texture" id=3]
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0.542447 ), 0.0, 0.0, 0, 0, Vector2( 0.690462, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.976002, 0.567416 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.0759494, 0.851852, 0.955556 )
+colors = PoolColorArray( 0.190039, 0.172223, 0.172223, 1, 0.0884765, 0.0805275, 0.0805275, 1, 0.109804, 0.0627451, 0.0196078, 0.788235 )
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0.0282501, 0.043071 ), 0.0, 0.0, 0, 0, Vector2( 0.265188, 0.966916 ), 0.0, 3.90209, 0, 0, Vector2( 1, 0.00561786 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.120253, 0.386076, 0.556962, 0.753165, 1 )
+colors = PoolColorArray( 0.951758, 0.94752, 0.944322, 1, 0.967383, 0.691367, 0.245625, 1, 0.940039, 0.330922, 0.110161, 1, 0.951758, 0.325681, 0.0706383, 1, 0.361914, 0.12781, 0.0212059, 1, 0.127539, 0.0383154, 0.00597839, 1 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "Explode"
+length = 0.8
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("SmokeParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FireBurstParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireBurstParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SmokeParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[node name="Explosion" type="Node2D"]
+z_index = 1
+z_as_relative = false
+script = ExtResource( 2 )
+
+[node name="SmokeParticles2D" type="CPUParticles2D" parent="."]
+amount = 5
+lifetime = 3.0
+preprocess = 0.6
+explosiveness = 0.6
+local_coords = false
+texture = ExtResource( 3 )
+emission_shape = 1
+emission_sphere_radius = 40.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 80.0
+initial_velocity_random = 0.6
+angular_velocity = 40.0
+damping = 40.0
+damping_random = 0.5
+angle = 360.0
+angle_random = 1.0
+scale_amount = 2.6
+scale_amount_random = 0.5
+scale_amount_curve = SubResource( 3 )
+color_ramp = SubResource( 4 )
+
+[node name="FireBurstParticles2D" type="CPUParticles2D" parent="."]
+amount = 5
+lifetime = 0.3
+explosiveness = 0.3
+randomness = 1.0
+local_coords = false
+draw_order = 1
+texture = ExtResource( 3 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 350.0
+initial_velocity_random = 0.5
+damping = 100.0
+damping_random = 0.85
+angle = 220.0
+angle_random = 1.0
+scale_amount = 2.0
+scale_amount_random = 0.02
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Explode = SubResource( 8 )
+anims/RESET = SubResource( 9 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

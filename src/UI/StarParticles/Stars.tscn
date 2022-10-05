@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/PNG/star.svg" type="Texture" id=1]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.270127, 0.982302 ), 0.0, 0.0, 0, 0, Vector2( 0.531426, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.778601, 0.982302 ), -1.76779, -1.76779, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Stars" type="CPUParticles2D"]
+position = Vector2( 720, 540 )
+amount = 7
+lifetime = 6.0
+preprocess = 6.0
+texture = ExtResource( 1 )
+emission_shape = 2
+emission_rect_extents = Vector2( 720, 540 )
+gravity = Vector2( 0, 0 )
+angular_velocity = 50.0
+angular_velocity_random = 1.0
+scale_amount_curve = SubResource( 1 )

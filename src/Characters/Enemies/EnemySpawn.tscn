@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Characters/Enemies/EnemySpawn.gd" type="Script" id=1]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 1400, 0 )
+}
+
+[node name="EnemySpawn" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="EnemyPath" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="EnemySpawnLocations" type="PathFollow2D" parent="EnemyPath"]
+position = Vector2( 1380.61, 0 )
+offset = 1342.56
+
+[node name="EnemyTimer" type="Timer" parent="."]
+wait_time = 0.75
+autostart = true
+
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_EnemyTimer_timeout"]

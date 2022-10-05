@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/Fonts/Poppins-SemiBold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/Fonts/Poppins-ExtraBold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://src/Screens/Intro.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 25
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 75
+use_mipmaps = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "FadeIn"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BlackOverlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "FadeOut"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BlackOverlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BlackOverlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+
+[node name="Intro" type="Node"]
+script = ExtResource( 3 )
+
+[node name="IntroBackground" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="CenterContainer" type="CenterContainer" parent="IntroBackground"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="IntroBackground/CenterContainer"]
+margin_left = 571.0
+margin_top = 467.0
+margin_right = 869.0
+margin_bottom = 613.0
+
+[node name="GameByLabel" type="Label" parent="IntroBackground/CenterContainer/VBoxContainer"]
+margin_right = 298.0
+margin_bottom = 36.0
+custom_colors/font_color = Color( 0.101961, 0.501961, 0.529412, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "A GAME BY"
+align = 1
+
+[node name="KaamilLabel" type="Label" parent="IntroBackground/CenterContainer/VBoxContainer"]
+margin_top = 40.0
+margin_right = 298.0
+margin_bottom = 146.0
+custom_colors/font_color = Color( 0.101961, 0.501961, 0.529412, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "KAAMIL"
+align = 1
+
+[node name="BlackOverlay" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 3 )
+anims/FadeOut = SubResource( 4 )
+anims/RESET = SubResource( 5 )

@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/Fonts/candles_.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/UI/Menu/MenuBtn.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Screens/MainScreen.gd" type="Script" id=3]
+[ext_resource path="res://assets/SFX/menu_click.ogg" type="AudioStream" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "BlackOverlay"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="MainScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="BlackOverlay" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.00392157, 0.0196078, 0.0470588, 1 )
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0.0509804, 0.14902, 1 )
+
+[node name="Title" type="Label" parent="Background"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -511.5
+margin_top = 32.0
+margin_right = 511.5
+margin_bottom = 77.0
+custom_colors/font_color = Color( 0.121569, 0.658824, 0.729412, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Shooter Game"
+align = 1
+valign = 1
+
+[node name="Container" type="CenterContainer" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MenuContainer" type="VBoxContainer" parent="Background/Container"]
+margin_left = 595.0
+margin_top = 430.0
+margin_right = 845.0
+margin_bottom = 649.0
+custom_constants/separation = 25
+
+[node name="StartGameBtn" parent="Background/Container/MenuContainer" instance=ExtResource( 2 )]
+margin_right = 250.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 250, 65 )
+text = "New Game"
+
+[node name="ExitBtn" parent="Background/Container/MenuContainer" instance=ExtResource( 2 )]
+margin_top = 90.0
+margin_right = 250.0
+margin_bottom = 155.0
+rect_min_size = Vector2( 250, 65 )
+text = "Exit"
+
+[node name="VersionLabel" type="Label" parent="Background/Container/MenuContainer"]
+margin_top = 180.0
+margin_right = 250.0
+margin_bottom = 219.0
+custom_colors/font_color = Color( 0.121569, 0.658824, 0.729412, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "v1.0.0"
+align = 1
+
+[node name="MenuClickSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="BlackOverlayAnim" type="AnimationPlayer" parent="."]
+anims/BlackOverlay = SubResource( 3 )
+anims/RESET = SubResource( 4 )
+
+[connection signal="pressed" from="Background/Container/MenuContainer/StartGameBtn" to="." method="_on_StartGameBtn_pressed"]
+[connection signal="pressed" from="Background/Container/MenuContainer/ExitBtn" to="." method="_on_ExitBtn_pressed"]
